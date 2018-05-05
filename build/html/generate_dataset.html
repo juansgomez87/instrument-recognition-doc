@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Generate data set &mdash; instRecCnn 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Train the Neural Network" href="train.html" />
+    <link rel="prev" title="Settings" href="settings.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> instRecCnn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Generate data set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">Train the Neural Network</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluate.html">Evaluate the Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Comparing Results</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">instRecCnn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Generate data set</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/generate_dataset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="generate-data-set">
+<h1>Generate data set<a class="headerlink" href="#generate-data-set" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To extract the features for a data set and save the resulting tensors, make sure that the
+ground truth metadata has been previously created by using the <em>create_encoding.py</em> script.</p>
+<p>Given the amount of processing, this class uses the <em>multiprocessing</em> package and it is
+recommended to run on a GPU, using the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">generate_dataset</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-generate_dataset"></span><dl class="class">
+<dt id="generate_dataset.GenerateDataset">
+<em class="property">class </em><code class="descclassname">generate_dataset.</code><code class="descname">GenerateDataset</code><span class="sig-paren">(</span><em>duration</em>, <em>num_classes</em>, <em>val_split</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>GenerateDataset generates training and testing tensors for a given dataset.
+The training inputs to the neural network are melspectrograms with 128 
+mel bands and variable segment duration length. This class also performs a 
+balanced train-validation split depending on the amount of samples in each
+class. All of the parameters are inherited from <em>settings.py</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>duration</strong> (<em>int</em>) – number of time bins to create melspectrogram.</li>
+<li><strong>num_classes</strong> (<em>int</em>) – number of classes to be evaluated.</li>
+<li><strong>val_split</strong> (<em>float</em>) – training-validation split from 0 to 1.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.create_multi_spectrogram">
+<code class="descname">create_multi_spectrogram</code><span class="sig-paren">(</span><em>filename</em>, <em>sr=22050</em>, <em>win_length=1024</em>, <em>hop_length=512</em>, <em>num_mel=128</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.create_multi_spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a melspectrogram from an audio file using librosa
+audio processing library. Parameters are default from Han et al. It also 
+extracts three spectrograms with different window sizes (multiples of the 
+original window size) and stacks them into a three-dimensional representation 
+of the audio.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) – wav filename to process.</li>
+<li><strong>sr</strong> (<em>int</em>) – sampling rate in Hz (default: 22050).</li>
+<li><strong>win_length</strong> (<em>int</em>) – window length for STFT (default: 1024).</li>
+<li><strong>hop_length</strong> (<em>int</em>) – hop length for STFT (default: 512).</li>
+<li><strong>num_mel</strong> (<em>int</em>) – number of mel bands (default:128).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ln_S</strong> <em>(np.array)</em> - melspectrogram of the complete audio file with logarithmic compression with dimensionality [mel bands x time frames x 3].</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.create_spectrogram">
+<code class="descname">create_spectrogram</code><span class="sig-paren">(</span><em>filename</em>, <em>sr=22050</em>, <em>win_length=1024</em>, <em>hop_length=512</em>, <em>num_mel=128</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.create_spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a melspectrogram from an audio file using librosa
+audio processing library. Parameters are default from Han et al.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> (<em>str</em>) – wav filename to process.</li>
+<li><strong>sr</strong> (<em>int</em>) – sampling rate in Hz (default: 22050).</li>
+<li><strong>win_length</strong> (<em>int</em>) – window length for STFT (default: 1024).</li>
+<li><strong>hop_length</strong> (<em>int</em>) – hop length for STFT (default: 512).</li>
+<li><strong>num_mel</strong> (<em>int</em>) – number of mel bands (default:128).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ln_S</strong> <em>(np.array)</em> - melspectrogram of the complete audio file with logarithmic compression with dimensionality [mel bands x time frames].</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.load_metadata">
+<code class="descname">load_metadata</code><span class="sig-paren">(</span><em>path_metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.load_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the metadata from the dataset previously generated 
+by <em>create_encoding.py</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path_metadata</strong> (<em>str</em>) – path to csv with filenames and labels.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>filenames</strong> <em>(list)</em> - list of filenames that exist in the metadata.</li>
+<li><strong>labels</strong> <em>(list)</em> - list of labels per filename that exist in the metadata.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.pure_development_split">
+<code class="descname">pure_development_split</code><span class="sig-paren">(</span><em>dataset</em>, <em>file_id</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.pure_development_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates balanced 50-50 split between pure testing data and
+development testing data from the test data set, depending on 
+the total number of examples from each class. This method is only available
+for testing data sets and can manage to output a single tensor (for the normal model - multi_input = <strong>False</strong>) and double tensors
+(for the model with two branches - multi_input = <strong>True</strong>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<em>list</em>) – list of extracted spectrograms for test data set.</li>
+<li><strong>file_id</strong> (<em>list</em>) – file identifier from which the spectrogram was extracted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>pure_test_set</strong> <em>(np.array)</em> - array(s) with spectrograms of pure test data set.</li>
+<li><strong>fid_pure_set</strong> <em>(list)</em> - list(s) of file ids for the pure test data set.</li>
+<li><strong>dev_test_set</strong> <em>(np.array)</em> - array(s) with spectrograms of development test data set.</li>
+<li><strong>fid_dev_set</strong> <em>(list)</em> - list(s) of file ids for the development test data set.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>type_run</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extracts the features for the training, validation,
+development test, and pure test data sets and saves the resulting tensors
+to train and evaluate the convolutional neural network. It uses the 
+<em>multiprocessing</em> package and the amount of processes created depends on the
+quantity of multiprocessing.cpu_count() function. It has been created for the
+normal model (multi_input = <strong>False</strong>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type_run</strong> (<em>str</em>) – generates ‘train’ or ‘test’ data sets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.run_multi">
+<code class="descname">run_multi</code><span class="sig-paren">(</span><em>type_run</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.run_multi" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method extracts the features for the training, validation,
+development test, and pure test data sets and saves the resulting tensors
+to train and evaluate the convolutional neural network. It uses the 
+<em>multiprocessing</em> package and the amount of processes created depends on the
+quantity of multiprocessing.cpu_count() function. It has been created for the
+two branch model (multi_input = <strong>True</strong>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>type_run</strong> (<em>str</em>) – generates ‘train’ or ‘test’ data sets.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="generate_dataset.GenerateDataset.validation_split">
+<code class="descname">validation_split</code><span class="sig-paren">(</span><em>dataset</em>, <em>class_id</em>, <em>file_id</em>, <em>num_classes</em>, <em>validation</em><span class="sig-paren">)</span><a class="headerlink" href="#generate_dataset.GenerateDataset.validation_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method shuffles the samples randomly and creates a balanced train-validation split depending on 
+the total number of examples from each class. This method is only available
+for training data sets and can manage to output a single tensor (for the normal model - multi_input = <strong>False</strong>) and double tensors
+(for the model with two branches - multi_input = <strong>True</strong>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<em>list</em>) – list of extracted melspectrograms for the dataset.</li>
+<li><strong>class_id</strong> (<em>list</em>) – list of labels from the extracted spectrograms.</li>
+<li><strong>file_id</strong> (<em>list</em>) – file identifier from which the spectrogram was extracted.</li>
+<li><strong>num_classes</strong> (<em>int</em>) – number of classes in the dataset.</li>
+<li><strong>validation</strong> (<em>float</em>) – train-validation split from 0 to 1.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>X_train</strong> <em>(np.array)</em> - array(s) with the training data set of spectrograms.</li>
+<li><strong>y_train</strong> <em>(np.array)</em> - array(s) with training labels of training data set.</li>
+<li><strong>fid_train</strong> <em>(list)</em> - list(s) of file ids for the training data set.</li>
+<li><strong>X_val</strong> <em>(np.array)</em> - array(s) with validation data set of spectrograms.</li>
+<li><strong>Y_val</strong> <em>(np.array)</em> - array(s) with validation labels of validation dataset</li>
+<li><strong>fid_val</strong> <em>(list)</em> - list(s) of file ids for the validation data set.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="train.html" class="btn btn-neutral float-right" title="Train the Neural Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="settings.html" class="btn btn-neutral" title="Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Juan Sebastián Gómez Cañón.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

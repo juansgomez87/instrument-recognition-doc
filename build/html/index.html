@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Automatic Instrument Recognition with Deep Convolutional Neural Networks &mdash; instRecCnn 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installing.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> instRecCnn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generate_dataset.html">Generate data set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">Train the Neural Network</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluate.html">Evaluate the Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Comparing Results</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">instRecCnn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Automatic Instrument Recognition with Deep Convolutional Neural Networks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="automatic-instrument-recognition-with-deep-convolutional-neural-networks">
+<h1>Automatic Instrument Recognition with Deep Convolutional Neural Networks<a class="headerlink" href="#automatic-instrument-recognition-with-deep-convolutional-neural-networks" title="Permalink to this headline">¶</a></h1>
+<p>Juan Sebastián Gómez Cañón (Ilmenau, Germany - 2018)</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>In the context of growing digital media and new classification/indexing demands, the
+task of Automatic Instrument Recognition in the field of Music Information Retrieval
+(MIR) has increasing importance. Through the use of deep learning techniques, namely
+convolutional neural networks, and different automatic source separation algorithms,
+developed at the Fraunhofer Institut für Digitale Medientechnologie (IDMT) <a class="footnote-reference" href="#id4" id="id1">[1]</a> <a class="footnote-reference" href="#id5" id="id2">[2]</a>, this
+Master thesis investigates this recognition task and how different pre-processing stages
+can improve its classification performance. Several experiments have been conducted
+in order to reproduce and improve upon the results of the reference system reported
+by Han et al. <a class="footnote-reference" href="#id6" id="id3">[3]</a> . Two systems are proposed in this research: an improved system using
+harmonic/percussive separation and post-processing using class-wise thresholding,
+and a combined system using solo/accompaniment separation and transfer learning
+methods for the special use case of jazz solo recognition. To validate the obtained
+results, diverse tests have been performed with multiple music data sets, with different
+complexities and instrument selections.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#pypi">pypi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#tensorflow">TensorFlow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#platform">Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html#create-metadata">Create Metadata</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="data-sets-and-training">
+<h2>Data sets and Training<a class="headerlink" href="#data-sets-and-training" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generate_dataset.html">Generate data set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generate_dataset.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">Train the Neural Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="train.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="evaluation-and-results">
+<h2>Evaluation and Results<a class="headerlink" href="#evaluation-and-results" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluate.html">Evaluate the Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html#operation-mode-1">Operation Mode 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html#operation-mode-2">Operation Mode 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html#operation-mode-3">Operation Mode 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluate.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Comparing Results</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="results.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="results.html#review-results">Review Results</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Estefanía Cano, Mark D. Plumbley, and Christian Dittmar, <em>“Phase-based harmonic/percussive separation,”</em> in Proceedings of the Annual Conference of the International Speech Communication Association (INTERSPEECH), Singapore, 2014, pp. 1628-1632.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Estefanía Cano, Gerald Schuller, and Christian Dittmar, <em>“Pitch-informed solo and accompaniment separation towards its use in music education applications,”</em> EURASIP Journal on Advances in Signal Processing, vol. 2014, pp. 23, 2014.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Yoonchang Han, Jaehun Kim, and Kyogu Lee, <em>“Deep convolutional neural networks for predominant instrument recognition in polyphonic music,”</em> IEEE/ACM Transactions on Audio, Speech, and Language Processing, vol. 25, no. 1, pp. 208-221, Jan 2017.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installing.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Juan Sebastián Gómez Cañón.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

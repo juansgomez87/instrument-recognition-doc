@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Train the Neural Network &mdash; instRecCnn 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Evaluate the Performance" href="evaluate.html" />
+    <link rel="prev" title="Generate data set" href="generate_dataset.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> instRecCnn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="generate_dataset.html">Generate data set</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Train the Neural Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluate.html">Evaluate the Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Comparing Results</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">instRecCnn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Train the Neural Network</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/train.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="train-the-neural-network">
+<h1>Train the Neural Network<a class="headerlink" href="#train-the-neural-network" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>After creating the tensors that will be used to train and test the neural network, it is
+possible to start training the neural network. Different models and optimizers can be selected
+by command-line argument parsing. Additionally, the <em>class_weight</em> implementation from <em>Keras</em>
+can be activated. This was implemented to take into account the uneven distribution of samples
+across instrument labels. Given that this did not result in improvements with the IRMAS data
+set, the use of this feature is optional in argument parsing. <em>Since the size of the neural
+network and the amount of data, it is strongly recommended to use a GPU to reduce training time.</em></p>
+<p>Available model names are:</p>
+<ul class="simple">
+<li><strong>model_baseline</strong> - Baseline model by Han et al. using ReLU activation functions (refer to <strong>section 4.1</strong>).</li>
+<li><strong>model_leaky</strong> - Baseline model by Han et al. using Leaky ReLU activation functions (refer to <strong>section 4.1</strong>).</li>
+<li><strong>model_two_branch</strong> - Model that allows for two simultaneous inputs and late fusion (refer to <strong>section 5.6.2</strong>).</li>
+<li><strong>model_multi_res</strong> - Model that allows for three dimensional input (refer to <strong>section 5.6.3</strong>).</li>
+</ul>
+<p>Available optimizer names are:</p>
+<ul class="simple">
+<li><strong>adam</strong> - Adam optimizer with parameters beta_1=0.9, beta_2=0.999, epsilon=1e-08.</li>
+<li><strong>sgd</strong> - Stochastic Gradient Descent optimizer with parameters momentum=0.9, decay=learning_rate/nb_epochs, Nesterov=True.</li>
+</ul>
+<p>To train the network, use the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">train</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">model_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">optimizer_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">c</span> <span class="o">&lt;</span><span class="n">y</span><span class="o">/</span><span class="n">n</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Finally, the resulting files are stored in the MODEL_PATH defined in <em>settings.py</em>:</p>
+<ul class="simple">
+<li><strong>&lt;model_name&gt;.&lt;optimizer_name&gt;&lt;iteration&gt;.history.npy</strong> - Training history to evaluate training and validation loss and accuracy.</li>
+<li><strong>&lt;model_name&gt;.&lt;optimizer_name&gt;&lt;iteration&gt;.best.hdf5</strong> - Stored weights by using ModelCheckpoint saving the model with best validation accuracy.</li>
+<li><strong>&lt;model_name&gt;.&lt;optimizer_name&gt;&lt;iteration&gt;.json</strong> - Structure of the neural network.</li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-train"></span><dl class="class">
+<dt id="train.Trainer">
+<em class="property">class </em><code class="descclassname">train.</code><code class="descname">Trainer</code><span class="sig-paren">(</span><em>model</em>, <em>optimizer</em>, <em>data_dist</em><span class="sig-paren">)</span><a class="headerlink" href="#train.Trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trainer trains a convolutional neural network with a given model. The training data set
+must have already been extracted with <em>generate_dataset.py</em>. The balanced train-validation
+split is already performed during the data set generation, so the trainer only performs
+a randoms shuffling on every epoch. All of the parameters are inherited from <em>settings.py</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<em>object</em>) – model to be trained with the selected data set.</li>
+<li><strong>optimizer</strong> (<em>str</em>) – optimizer to be used in backpropagation.</li>
+<li><strong>data_dist</strong> (<em>pandas dataframe</em>) – dataframe with samples distribution in dataset (if class_weight is implemented).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="train.Trainer.load_data">
+<code class="descname">load_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#train.Trainer.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the training and validation tensors (melspectrogram arrays) and 
+corresponding labels to memory (for the case of single input). It also implements one hot encoding for the labels
+(both training and validation data sets).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="train.Trainer.load_multi_data">
+<code class="descname">load_multi_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#train.Trainer.load_multi_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the training and validation tensors (melspectrogram arrays) and 
+corresponding labels to memory (for the case of multiple input). It also implements one hot encoding for the labels
+(both training and validation data sets).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="train.Trainer.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>epochs</em>, <em>batch</em>, <em>iter_num</em><span class="sig-paren">)</span><a class="headerlink" href="#train.Trainer.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method trains the corresponding model and implements two callback
+functions: Early Stopping (patience = 5 epochs) and Model Checkpointing. The number of epochs and
+mini-batch size are inherited from <em>settings.py</em>. Additionally, the training history, weights, and 
+structure are stored in the MODEL_PATH.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>epoch</strong> (<em>int</em>) – maximum number of epochs to train model.</li>
+<li><strong>batch</strong> (<em>int</em>) – mini-batch size.</li>
+<li><strong>iter_num</strong> (<em>int</em>) – number of training iterations to compensate for random initialization.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="evaluate.html" class="btn btn-neutral float-right" title="Evaluate the Performance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generate_dataset.html" class="btn btn-neutral" title="Generate data set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Juan Sebastián Gómez Cañón.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

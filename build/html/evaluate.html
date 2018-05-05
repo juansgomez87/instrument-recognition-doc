@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Evaluate the Performance &mdash; instRecCnn 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Comparing Results" href="results.html" />
+    <link rel="prev" title="Train the Neural Network" href="train.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> instRecCnn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generate_dataset.html">Generate data set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train.html">Train the Neural Network</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaluate the Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-mode-1">Operation Mode 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-mode-2">Operation Mode 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operation-mode-3">Operation Mode 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Comparing Results</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">instRecCnn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Evaluate the Performance</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/evaluate.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="evaluate-the-performance">
+<h1>Evaluate the Performance<a class="headerlink" href="#evaluate-the-performance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>After creating the tensors that will be used to train and test the neural network, it is
+possible to start training the neural network. Different models and optimizers can be selected
+by command-line argument parsing. Additionally, the <strong>class_weight</strong> implementation from <em>Keras</em>
+can be activated. This was implemented to take into account the uneven distribution of samples
+across instrument labels. Given that this did not result in improvements with the IRMAS data
+set, the use of this feature is optional in argument parsing.</p>
+<p>Available models are: <strong>model_baseline</strong>, <strong>model_leaky</strong>, <strong>model_two_branch</strong>, and
+<strong>model_multi_res</strong>. Available optimizers are: <strong>adam</strong> and <strong>sgd</strong></p>
+<p>To train the network, use the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">evaluate</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">model_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">optimizer_name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">O</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Depending on the operation mode, follow the instructions to select the split.</p>
+</div>
+<div class="section" id="operation-mode-1">
+<h2>Operation Mode 1<a class="headerlink" href="#operation-mode-1" title="Permalink to this headline">¶</a></h2>
+<p>This operation mode is used to extract confusion matrices. Since confusion matrices are only
+valid for single labeled data, there are two possibilities depending on the used data sets:</p>
+<ul class="simple">
+<li><strong>IRMAS and IRMAS Wind data sets:</strong> since these data sets are multi-labeled on the testing data, a new model is trained by using 50% of the training data set and the remain for confusion matrix calculation.</li>
+<li><strong>Monotimbral and Jazz data sets:</strong> since these data sets are single-labeled in both training and testing data sets, confusion matrices can be extracted by using the pure test data set.</li>
+</ul>
+<p>To plot the confusion matrices:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">MODEL_PATH</span><span class="o">&gt;/&lt;</span><span class="n">model_name</span><span class="o">&gt;</span>
+<span class="n">python3</span> <span class="n">plot_conf_mat</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operation-mode-2">
+<h2>Operation Mode 2<a class="headerlink" href="#operation-mode-2" title="Permalink to this headline">¶</a></h2>
+<p>This operation mode evaluates global and class-wise performance metrics while varying the
+identification threshold from 0 to 1. Following the authors, the development test data set
+was used to calculate the performance metrics.</p>
+<p>To be able to extract the final performance metrics, it is necessary to plot their behaviour
+with respect to the identification threshold:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">MODEL_PATH</span><span class="o">&gt;/&lt;</span><span class="n">model_name</span><span class="o">&gt;</span>
+<span class="n">python3</span> <span class="n">plot_perf_metrics</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p><strong>Do not skip this step, before extracting final performance metrics.</strong></p>
+</div>
+<div class="section" id="operation-mode-3">
+<h2>Operation Mode 3<a class="headerlink" href="#operation-mode-3" title="Permalink to this headline">¶</a></h2>
+<p>Finally, the final performance metrics are extracted by using the optima identification thresholds
+(for both global and class-wise cases) on the pure test data set.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-evaluate"></span><dl class="class">
+<dt id="evaluate.Evaluator">
+<em class="property">class </em><code class="descclassname">evaluate.</code><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>model_str</em>, <em>optimizer_str</em>, <em>num_classes</em>, <em>iter_num</em>, <em>op_mode</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluator uses the testing data set to reproduce results from the 
+original neural network design and evaluate the improvements made by 
+audio source separation and different proposed experiments. This testing
+algorithm allows variable length of audio excerpts.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<em>str</em>) – model to be evaluated.</li>
+<li><strong>optimizer</strong> (<em>str</em>) – optimizer that was used in training.</li>
+<li><strong>num_classes</strong> (<em>int</em>) – number of classes that were trained in the model.</li>
+<li><strong>iter_num</strong> (<em>int</em>) – number of training iterations to evaluate.</li>
+<li><strong>op_mode</strong> (<em>int</em>) – operation mode [1] evaluate confusion matrix, [2] evaluate classwise and global performance metrics and [3] final performance metrics using the pure test data set.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="evaluate.Evaluator.aggregate_predictions">
+<code class="descname">aggregate_predictions</code><span class="sig-paren">(</span><em>strategy</em>, <em>full_predictions</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.aggregate_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method performs different aggregation strategies to obtain a final
+prediction for each sample (complete audio excerpt) in the test data set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>strategy</strong> (<em>str</em>) – name of the aggregation strategy to evaluate.</li>
+<li><strong>full_predictions</strong> (<em>list</em>) – complete predictions over all excerpts in test data set.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.best_classwise_global_performance_metrics">
+<code class="descname">best_classwise_global_performance_metrics</code><span class="sig-paren">(</span><em>strategy</em>, <em>iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.best_classwise_global_performance_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculates the global performance metrics of the system, 
+using a novel approach: using the optima class-wise thresholds in
+in the pure test data set. It calculates precision, recall and f-score for micro and macro averaging.
+It also evaluates different performance metrics using a variable threshold 
+for each instrument separately.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>strategy</strong> (<em>str</em>) – name of the aggregation strategy to store.</li>
+<li><strong>iteration</strong> (<em>int</em>) – id of the iteration being evaluated.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.classwise_performance_metrics">
+<code class="descname">classwise_performance_metrics</code><span class="sig-paren">(</span><em>strategy</em>, <em>iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.classwise_performance_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculates the classwise performance metrics of the system. It
+calculates precision, recall and f-score for micro and macro averaging.
+It also evaluates different performance metrics using a variable threshold 
+for each instrument separately.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>strategy</strong> (<em>str</em>) – name of the aggregation strategy to store.</li>
+<li><strong>iteration</strong> (<em>int</em>) – id of the iteration being evaluated.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>predictions</em>, <em>model_str</em>, <em>optimizer_str</em>, <em>iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method evaluates the corresponding trained model i with different
+aggregation strategies for each sample in the dataset. It saves a dictionary
+with the corresponding performance metrics depending on the operation mode
+of the evaluator and the incoming predicted values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>predictions</strong> (<em>list</em>) – calculated predictions for model i and selected operation mode.</li>
+<li><strong>model_str</strong> (<em>str</em>) – name of the model to load.</li>
+<li><strong>optimizer_str</strong> (<em>str</em>) – name of the optimizer used in training.</li>
+<li><strong>iteration</strong> (<em>int</em>) – id of the iteration being evaluated.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.global_performance_metrics">
+<code class="descname">global_performance_metrics</code><span class="sig-paren">(</span><em>strategy</em>, <em>iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.global_performance_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculates the global performance metrics of the system. It
+calculates precision, recall and f-score for micro and macro averaging.
+It also evaluates different performance metrics using a variable global threshold 
+for all instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>strategy</strong> (<em>str</em>) – name of the aggregation strategy to store.</li>
+<li><strong>iteration</strong> (<em>int</em>) – id of the iteration being evaluated.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.load_model">
+<code class="descname">load_model</code><span class="sig-paren">(</span><em>model_str</em>, <em>optimizer_str</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the model and the weights obtained in training.
+Each model is represented by the activation function used and the optimizer 
+used in backpropagation. It also calculates the predictions for every
+melspectrogram in the testing data sets (validation, development, and pure test data sets).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model_str</strong> (<em>str</em>) – name of the model to load.</li>
+<li><strong>optimizer_str</strong> (<em>str</em>) – name of the optimizer used in training.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.load_multi_test_data">
+<code class="descname">load_multi_test_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.load_multi_test_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the multiple-input development test data (melspectrogram arrays) and 
+corresponding file ids to memory. It also implements one hot encoding 
+and multilabel binarizer for the labels in the test data set. The loaded data set
+depends on the operation mode selected to perform the evaluation: [1] loads 50-50
+train-validation split, [2] loads variable train-validation split, [3] loads pure 
+testing data set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.load_test_data">
+<code class="descname">load_test_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.load_test_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the single-input development test data (melspectrogram arrays) and 
+corresponding file ids to memory. It also implements one hot encoding 
+and multilabel binarizer for the labels in the test data set. The loaded data set
+depends on the operation mode selected to perform the evaluation: [1] loads 50-50
+train-validation split, [2] loads variable train-validation split, [3] loads pure 
+testing data set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="evaluate.Evaluator.save_results">
+<code class="descname">save_results</code><span class="sig-paren">(</span><em>model_str</em>, <em>optimizer_str</em><span class="sig-paren">)</span><a class="headerlink" href="#evaluate.Evaluator.save_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method saves the results of the evaluation depending on the operation mode
+of the evaluator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model_str</strong> (<em>str</em>) – name of the model</li>
+<li><strong>optimizer_str</strong> (<em>str</em>) – name of the optimizer</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="results.html" class="btn btn-neutral float-right" title="Comparing Results" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="train.html" class="btn btn-neutral" title="Train the Neural Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Juan Sebastián Gómez Cañón.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+Installation
+============
+This implementation uses the *librosa* python package in order to extract the melspectrograms
+that are used to train the neural network. *Pandas* is used to organize the results in 
+dataframes and evaluate them. *Keras* is the neural networks API used for the implementation
+of all the models. Finally, *matplotlib* is used to plot the final results of the performance
+metrics obtained. Additionally, the implementation was created in Python 3.
+
+pypi
+----
+To install the necessary packages, you can run the following command::
+
+	sudo pip install librosa, numpy, pandas, keras, matplotlib
+	
+TensorFlow
+----------
+Please refer to this `link <https://www.tensorflow.org/install/>`_ to install
+TensorFlow depending on your operating system.
