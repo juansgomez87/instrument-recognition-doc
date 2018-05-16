@@ -6,13 +6,17 @@ dataframes and evaluate them. *Keras* is the neural networks API used for the im
 of all the models. Finally, *matplotlib* is used to plot the final results of the performance
 metrics obtained. Additionally, the implementation was created in Python 3.
 
-pypi
-----
-To install the necessary packages, you can run the following command::
+conda
+-----
 
-	sudo pip install librosa, numpy, pandas, keras, matplotlib
-	
-TensorFlow
-----------
-Please refer to this `link <https://www.tensorflow.org/install/>`_ to install
-TensorFlow depending on your operating system.
+To install please download the environment inst_rec_env.yml and install it:
+
+	conda env create -f inst_rec_env.yml
+
+To activate it, run::
+
+	source activate deep
+
+To visualize the packages installed run::
+
+	conda list

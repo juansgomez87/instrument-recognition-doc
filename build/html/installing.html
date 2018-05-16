@@ -85,8 +85,7 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pypi">pypi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tensorflow">TensorFlow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conda">conda</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
@@ -169,17 +168,19 @@ that are used to train the neural network. <em>Pandas</em> is used to organize t
 dataframes and evaluate them. <em>Keras</em> is the neural networks API used for the implementation
 of all the models. Finally, <em>matplotlib</em> is used to plot the final results of the performance
 metrics obtained. Additionally, the implementation was created in Python 3.</p>
-<div class="section" id="pypi">
-<h2>pypi<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h2>
-<p>To install the necessary packages, you can run the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">librosa</span><span class="p">,</span> <span class="n">numpy</span><span class="p">,</span> <span class="n">pandas</span><span class="p">,</span> <span class="n">keras</span><span class="p">,</span> <span class="n">matplotlib</span>
+<div class="section" id="conda">
+<h2>conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h2>
+<p>To install please download the environment inst_rec_env.yml and install it:</p>
+<blockquote>
+<div>conda env create -f inst_rec_env.yml</div></blockquote>
+<p>To activate it, run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">activate</span> <span class="n">deep</span>
 </pre></div>
 </div>
+<p>To visualize the packages installed run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="nb">list</span>
+</pre></div>
 </div>
-<div class="section" id="tensorflow">
-<h2>TensorFlow<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h2>
-<p>Please refer to this <a class="reference external" href="https://www.tensorflow.org/install/">link</a> to install
-TensorFlow depending on your operating system.</p>
 </div>
 </div>
 
